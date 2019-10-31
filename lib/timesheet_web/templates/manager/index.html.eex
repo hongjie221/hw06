@@ -1,0 +1,30 @@
+<h1>Listing Managers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Email</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for manager <- @managers do %>
+    <tr>
+      <td><%= manager.id %></td>
+      <td><%= manager.name %></td>
+      <td><%= manager.email %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.manager_path(@conn, :show, manager) %></span>
+        <span><%= link "Edit", to: Routes.manager_path(@conn, :edit, manager) %></span>
+        <span><%= link "Delete", to: Routes.manager_path(@conn, :delete, manager), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Manager", to: Routes.manager_path(@conn, :new) %></span>
