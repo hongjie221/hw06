@@ -1,13 +1,18 @@
+<script>
+ function approve(id) {
+   alert(id);
+ }
+</script>
+
+
 <h1>Show Sheet</h1>
+<% sheets = @sheets_list %>
+<% sheets_status = @sheets_status %>
+<% sheets_detail = Enum.zip(sheets, sheets_status) %>
+<% sheets_detail_with_index = Enum.with_index(sheets_detail)%>
+<%= for {sheet_detail, index} <- sheets_detail_with_index do %>
+  
+  <%= render("sheet.html", sheet_detail: sheet_detail) %>
 
-<ul>
 
-  <li>
-    <strong>Status:</strong>
-    <%= @sheet.status %>
-  </li>
-
-</ul>
-
-<span><%= link "Edit", to: Routes.sheet_path(@conn, :edit, @sheet) %></span>
-<span><%= link "Back", to: Routes.sheet_path(@conn, :index) %></span>
+<% end %>

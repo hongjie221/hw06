@@ -13,13 +13,13 @@
       Worker: <%= @current_worker.name%>
       (<%= link("Logout", to: Routes.session_path(@conn, :delete), method: :delete) %>)
     <% else %>
-      <%= link("Worker_Login", to: Routes.session_path(@conn, :new))%>
+      <%= link("Worker_Login", to: Routes.session_path(@conn, :new, worker: "worker"))%>
       <%= Login_fail%>
     <% end %>
 
 
 
-    <%= link("Manager_Login", to: Routes.session_path(@conn, :new))%>
+    <%= link("Manager_Login", to: Routes.session_path(@conn, :new, manager: "manager"))%>
     </div>
 
     <div>

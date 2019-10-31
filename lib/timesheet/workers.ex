@@ -102,18 +102,24 @@ defmodule Timesheet.Workers do
     Worker.changeset(worker, %{})
   end
 
-
   def get_worker_by_email(email) do
     Repo.get_by(Worker, email: email)
   end
 
   def get_worker(id), do: Repo.get(Worker, id)
 
+  def get_workers_by_manager_id(manager_id) do
+    query = from(w in Worker, where: w.manager_id == ^manager_id, select: {w.id})
+    worker_id_list = Repo.all(query)
+    Enum.map(worker_id_list, fn {x} -> x end)
+  end
+
   def authenticate(email, pass) do
     worker = Repo.get_by(Worker, email: email)
-    #case Argon2.check_pass(worker, pass) do
-      #{:ok, worker} -> worker
-     #_ -> nil
 
+    case Argon2.check_pass(worker, pass) do
+      {:ok, worker} -> worker
+      _ -> nil
+    end
   end
 end

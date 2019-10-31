@@ -1,0 +1,13 @@
+
+<% {sheet_id, sheet_status} = @sheet_detail%>
+<% [approved] = sheet_status %>
+<%= if approved do %>
+  <p>Sheet  Status: Approved</p>
+<% else %>
+  <p>Sheet Status: Not Approved</p>
+<% end %>
+<% tasks = Timesheet.Tasks.get_task_by_sheet_id(sheet_id) %>
+<%= for {jobcode, hour} <- tasks do %>
+  <p>Jobcode: <%= jobcode%>  Hour: <%= hour %></p>
+<% end %>
+

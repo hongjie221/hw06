@@ -27,8 +27,11 @@ defmodule TimesheetWeb.SheetController do
   end
 
   def show(conn, %{"id" => id}) do
-    sheet = Sheets.get_sheet!(id)
-    render(conn, "show.html", sheet: sheet)
+    worker_list = Timesheet.Workers.get_workers_by_manager_id(id)
+    sheet_list = Enum.map(worker_list, fn x -> Timesheet.Sheets.get_all_sheet_id_by_worker_id(x) end)
+    sheets_list = Enum.at(sheet_list, 0)
+    sheets_status = Enum.map(sheets_list, fn x -> Timesheet.Sheets.get_sheet_status_by_id(x) end)
+    render(conn, "show.html", sheets_list: sheets_list, sheets_status: sheets_status)
   end
 
   def edit(conn, %{"id" => id}) do

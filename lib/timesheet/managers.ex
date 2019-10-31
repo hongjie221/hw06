@@ -101,4 +101,18 @@ defmodule Timesheet.Managers do
   def change_manager(%Manager{} = manager) do
     Manager.changeset(manager, %{})
   end
+
+  def get_manager_by_email(email) do
+    Repo.get_by(Manager, email: email)
+  end
+
+
+  def authenticate(email, pass) do
+    manager = Repo.get_by(Manager, email: email)
+
+    case Argon2.check_pass(manager, pass) do
+      {:ok, manager} -> manager
+      _ -> nil
+    end
+  end
 end
