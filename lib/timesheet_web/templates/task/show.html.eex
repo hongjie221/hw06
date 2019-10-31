@@ -1,2 +1,10 @@
 <h1>Show Task</h1>
+<% all_combo = @all_combo%>
 
+<%= if all_combo !== "1" do %>
+  <%= for combo <- all_combo do %>
+  <%= render("task.html", combo: combo) %>
+  <% end %>
+<% else %> 
+  <p>Go back and try again </p>
+<% end %>

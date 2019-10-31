@@ -114,6 +114,6 @@ defmodule Timesheet.Workers do
     #case Argon2.check_pass(worker, pass) do
       #{:ok, worker} -> worker
      #_ -> nil
-   # end
+
   end
 end

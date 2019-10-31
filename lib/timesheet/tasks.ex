@@ -101,4 +101,16 @@ defmodule Timesheet.Tasks do
   def change_task(%Task{} = task) do
     Task.changeset(task, %{})
   end
+
+  def get_task_by_sheet_id(sheet_id)  do
+    query = from(t in Task, where: t.sheet_id == ^sheet_id, select: {t.job_id, t.hours})
+    sheet_id_list = Repo.all(query)
+    combo_t = Enum.map(sheet_id_list, fn {job_id, hour} -> {
+      Timesheet.Jobs.get_job_code_by_id(job_id), hour
+     }end )
+
+  end
+
+
+
 end

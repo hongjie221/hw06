@@ -21,6 +21,32 @@ defmodule Timesheet.Jobs do
     Repo.all(Job)
   end
 
+  def get_job_id_by_code(job_code) do
+    query = from(j in Job, where: j.jobcode == ^job_code)
+    job = Repo.all(query)
+    job = Enum.at(job, 0)
+    job.id
+  end
+
+  def get_job_code_by_id(job_id) do
+    query = from(j in Job, where: j.id == ^job_id)
+    job = Repo.all(query)
+    job = Enum.at(job, 0)
+    job.jobcode
+  end
+
+  def get_budget_by_code(job_code) do
+    query = from(j in Job, where: j.jobcode == ^job_code)
+    job = Repo.all(query)
+    job = Enum.at(job, 0)
+    job.budget
+  end
+
+  def substract_budget_by_job_code(job_code, hour) do
+    from(j in Job, where: j.jobcode == ^job_code)
+    |> Repo.update_all(set: [budget: get_budget_by_code(job_code) - hour])
+  end
+
   @spec list_job_codes :: any
   def list_job_codes do
     query = from(j in Job, select: {j.jobcode})
@@ -61,50 +87,7 @@ defmodule Timesheet.Jobs do
     |> Repo.insert()
   end
 
-  @doc """
-  Updates a job.
 
-  ## Examples
 
-      iex> update_job(job, %{field: new_value})
-      {:ok, %Job{}}
 
-      iex> update_job(job, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_job(%Job{} = job, attrs) do
-    job
-    |> Job.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a Job.
-
-  ## Examples
-
-      iex> delete_job(job)
-      {:ok, %Job{}}
-
-      iex> delete_job(job)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_job(%Job{} = job) do
-    Repo.delete(job)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking job changes.
-
-  ## Examples
-
-      iex> change_job(job)
-      %Ecto.Changeset{source: %Job{}}
-
-  """
-  def change_job(%Job{} = job) do
-    Job.changeset(job, %{})
-  end
 end

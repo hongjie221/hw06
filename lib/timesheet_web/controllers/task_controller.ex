@@ -1,6 +1,5 @@
 defmodule TimesheetWeb.TaskController do
   use TimesheetWeb, :controller
-
   alias Timesheet.Tasks
   alias Timesheet.Tasks.Task
 
@@ -14,8 +13,11 @@ defmodule TimesheetWeb.TaskController do
   end
 
   def create(conn, %{"hours1" => hours1, "hours2" => hours2, "hours3" => hours3, "hours4" => hours4,
-  "hours5" => hours5, "hours6" => hours6, "hours7" => hours7, "hours8" => hours8}) do
+  "hours5" => hours5, "hours6" => hours6, "hours7" => hours7, "hours8" => hours8, "job_code1" => jobcode1,
+  "job_code2" => jobcode2, "job_code3" => jobcode3, "job_code4" => jobcode4, "job_code5" => jobcode5,
+  "job_code6" => jobcode6, "job_code7" => jobcode7, "job_code8" => jobcode8}) do
     hour = [hours1, hours2, hours3, hours4, hours5, hours6, hours7, hours8]
+    jobcode = [jobcode1, jobcode2, jobcode3, jobcode4, jobcode5, jobcode6, jobcode7, jobcode8]
     hour = Enum.map(hour, fn x -> {if String.length(x) === 0 do
       0
     else
@@ -23,14 +25,34 @@ defmodule TimesheetWeb.TaskController do
       a
     end}end)
     hour = Enum.map(hour, fn {x} -> x end)
+    combo = Enum.zip(hour, jobcode)
     {_, total} = Enum.map_reduce(hour, 0, fn x, acc -> {x, x + acc} end)
     if total === 8 do
-      render(conn, "show.html")
+      current_worker_id = get_session(conn, :worker_id)
+      {:ok, sheet} = Timesheet.Sheets.create_sheet(%{worker_id: current_worker_id, status: false})
+
+      Enum.map(combo, fn {x, y} -> {
+        Timesheet.Tasks.create_task(%{hours: x, job_id: Timesheet.Jobs.get_job_id_by_code(y),
+        worker_id: current_worker_id, sheet_id: sheet.id})}
+      end
+      )
+
+      Enum.map(combo, fn {y, x} -> {
+        Timesheet.Jobs.substract_budget_by_job_code(x, y)
+      }
+      end
+      )
+
+      sheets = Timesheet.Sheets.get_all_sheet_id_by_worker_id(current_worker_id)
+      all_tasks = Enum.map(sheets, fn x -> Timesheet.Tasks.get_task_by_sheet_id(x) end)
+      all_status = Enum.map(sheets, fn x -> Timesheet.Sheets.get_sheet_status_by_id(x) end)
+      all_combo = Enum.zip(all_tasks, all_status)
+      render(conn, "show.html", all_combo: all_combo)
     else
+      all_combo = 1
       conn
       |> put_flash(:info, "invalid hours")
-
-      |> redirect(to: Routes.task_path(conn, :show, 1))
+      |> redirect(to: Routes.task_path(conn, :show, all_combo))
       #render(conn, "show.html")
     end
     #case Tasks.create_task(task_params) do
@@ -44,8 +66,8 @@ defmodule TimesheetWeb.TaskController do
     #end
   end
 
-  def show(conn, %{"id" => _id}) do
-    render(conn, "show.html")
+  def show(conn, %{"id" => all_combo}) do
+    render(conn, "show.html", all_combo: all_combo)
   end
 
   def edit(conn, %{"id" => id}) do

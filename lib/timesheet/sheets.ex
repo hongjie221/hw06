@@ -101,4 +101,14 @@ defmodule Timesheet.Sheets do
   def change_sheet(%Sheet{} = sheet) do
     Sheet.changeset(sheet, %{})
   end
+
+  def get_all_sheet_id_by_worker_id(worker_id) do
+    query = from(s in Sheet, where: s.worker_id == ^worker_id, select: {s.id})
+    Enum.map(Repo.all(query), fn {x} -> x end)
+  end
+
+  def get_sheet_status_by_id(sheet_id) do
+    query = from(s in Sheet, where: s.id == ^sheet_id, select: {s.status})
+    Enum.map(Repo.all(query), fn {x} -> x end)
+  end
 end
