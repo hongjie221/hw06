@@ -1,6 +1,9 @@
 <h1>Listing Tasks</h1>
 <h2>Task.Index</h2>
 
+<span> <%= link("View All Sheets", 
+    to: Routes.session_path(@conn, :new, manager: "manager"))%><span>
+
 <%= form_for @conn, Routes.task_path(@conn, :create), fn f -> %>
   <div class="form_group">
     <%= label f, :task1 %>

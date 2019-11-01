@@ -2,9 +2,9 @@
 <% {sheet_id, sheet_status} = @sheet_detail%>
 <% [approved] = sheet_status %>
 <%= if approved do %>
-  <tr>Sheet  Status: Approved</tr>
+  <span>Sheet  Status: Approved</span>
 <% else %>
-  <tr>Sheet Status: Not Approved</tr>
+  <span>Sheet Status: Not Approved</span>
 <% end %>
 <% tasks = Timesheet.Tasks.get_task_by_sheet_id(sheet_id) %>
  

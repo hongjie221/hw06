@@ -1,9 +1,4 @@
 <h1>Sheet Approved</h1>
-<script>
- function approve(id) {
-   document.getElementById("2").innerHTML = "hello"
- }
-</script>
 
 
 <h1>Show Sheet</h1>

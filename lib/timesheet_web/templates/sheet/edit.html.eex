@@ -24,8 +24,8 @@
   </thead>
   <%= render("sheet.html", sheet_detail: sheet_detail) %>
   <%= if Enum.at(sheets_status, index) === [false] do %>
-    <tr><p><%= link("approve", 
-    to: Routes.sheet_path(@conn, :show, Elixir.Enum.at(sheets, index)))%></p></tr>
+    <span><p><%= link("approve", 
+    to: Routes.sheet_path(@conn, :show, Elixir.Enum.at(sheets, index)))%></p></span>
   <% end %>
 </table>
 

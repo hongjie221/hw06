@@ -23,8 +23,13 @@ defmodule TimesheetWeb.TaskController do
     hour = Enum.map(hour, fn x -> {if String.length(x) === 0 do
       0
     else
-      {a, _} = Integer.parse(x)
-      a
+      case Integer.parse(x) do
+        :error -> 100
+        {a, _} -> if a < 0 do 100
+      else
+        a
+      end
+      end
     end}end)
     hour = Enum.map(hour, fn {x} -> x end)
     combo = Enum.zip(hour, jobcode)
@@ -35,9 +40,13 @@ defmodule TimesheetWeb.TaskController do
       {:ok, sheet} = Timesheet.Sheets.create_sheet(%{worker_id: current_worker_id, status: false})
 
       Enum.map(combo_with_note, fn {{x, y}, z} -> {
+        if (x !== 0) do
+          IO.inspect("note info")
+          IO.inspect(z)
         Timesheet.Tasks.create_task(%{hours: x, job_id: Timesheet.Jobs.get_job_id_by_code(y),
-        worker_id: current_worker_id, sheet_id: sheet.id, note: z})}
+        worker_id: current_worker_id, sheet_id: sheet.id, note: z}) end}
       end
+
       )
       sheets = Timesheet.Sheets.get_all_sheet_id_by_worker_id(current_worker_id)
       all_tasks = Enum.map(sheets, fn x -> Timesheet.Tasks.get_task_by_sheet_id(x) end)

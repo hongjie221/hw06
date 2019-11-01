@@ -1,18 +1,24 @@
-<p> Task </p>
 
 <% {tasks, approve} = @combo %>
 <% task_list = tasks %>
 <% [status] = approve%>
 
 <%= if status  do %>
- <p>Status: <%= "Approved" %> </p>
+ <span>Status: <%= "Approved" %> </span>
 <% else %>
- <p>Status: <%= "Not Approved" %> </p>
+ <span>Status: <%= "Not Approved" %> </span>
  <% end %>
 
 <%= for task <- task_list do %>
   <% {task_jobcode, task_hour, task_note} = task %>
-  <p>Job Code:<%= task_jobcode %> Hour: <%= task_hour %> Note: <%= task_note %></p>
+  <tbody>
+  <tr>
+    <td><%= task_jobcode %></td>
+    <td><%= task_hour %></td>
+    <td><%= task_note %></td>
+  </tr>
+</tbody>
+ 
 <% end %>
 
 
