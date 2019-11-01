@@ -37,6 +37,8 @@ defmodule Timesheet.Managers do
   """
   def get_manager!(id), do: Repo.get!(Manager, id)
 
+  def get_manager(id), do: Repo.get(Manager, id)
+
   @doc """
   Creates a manager.
 

@@ -3,8 +3,17 @@
 
 <%= if all_combo !== "1" do %>
   <%= for combo <- all_combo do %>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Jobcode</th>
+      <th>Hour</th>
+      <th>Note</th>
+    </tr>
+  </thead>
   <%= render("task.html", combo: combo) %>
   <% end %>
+  </thead>
 <% else %> 
   <p>Go back and try again </p>
 <% end %>

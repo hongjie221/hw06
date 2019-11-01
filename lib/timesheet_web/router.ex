@@ -5,6 +5,7 @@ defmodule TimesheetWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug TimesheetWeb.Plugs.FetchCurrentWorker
+    plug TimesheetWeb.Plugs.FetchCurrentManager
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
@@ -24,6 +25,7 @@ defmodule TimesheetWeb.Router do
       only: [:new, :create, :delete], singleton: true
     resources "/tasks", TaskController
     resources "/sheets", SheetController
+
   end
 
   # Other scopes may use custom stacks.

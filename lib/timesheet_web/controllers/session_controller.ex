@@ -18,6 +18,7 @@ defmodule TimesheetWeb.SessionController do
       conn
       |> put_session(:worker_email, worker_email)
       |> put_session(:worker_id, worker.id)
+      |> put_session(:type, "worker")
       |> put_flash(:info, "Welcome back #{worker_email}")
       |> redirect(to: Routes.task_path(conn, :index, allJobs: allJobs))
      #render(conn, "index.html", allJobs: allJobs)
@@ -34,8 +35,9 @@ defmodule TimesheetWeb.SessionController do
       manager_id = manager.id
       conn
       |> put_session(:manager_email, manager_email)
+      |> put_session(:manager_id, manager_id)
       |> put_flash(:info, "Welcome back Manager #{manager_email}")
-      |> redirect(to: Routes.sheet_path(conn, :show, manager_id))
+      |> redirect(to: Routes.sheet_path(conn, :edit, manager_id))
     else
       conn
       |> put_flash(:error, "Login failed")
@@ -44,10 +46,18 @@ defmodule TimesheetWeb.SessionController do
   end
 
 
-  def delete(conn, _params) do
+  def delete(conn, %{"worker" => worker}) do
     conn
     |> delete_session(:worker_id)
     |> put_flash(:info, "Log out")
     |> redirect(to: Routes.page_path(conn, :index))
   end
+
+  def delete(conn, %{"manager" => manager}) do
+    conn
+    |> delete_session(:manager_id)
+    |> put_flash(:info, "Log out")
+    |> redirect(to: Routes.page_path(conn, :index))
+  end
+
 end

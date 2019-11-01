@@ -6,6 +6,7 @@ defmodule Timesheet.Tasks.Task do
     field :hours, :integer
     field :job_id, :id
     field :worker_id, :id
+    field :note, :string
     belongs_to :sheet, Timesheet.Sheets.Sheet
 
     timestamps()

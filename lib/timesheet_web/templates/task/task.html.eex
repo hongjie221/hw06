@@ -11,8 +11,8 @@
  <% end %>
 
 <%= for task <- task_list do %>
-  <% {task_jobcode, task_hour} = task %>
-  <p>Job Code:<%= task_jobcode %> Hout: <%= task_hour %></p>
+  <% {task_jobcode, task_hour, task_note} = task %>
+  <p>Job Code:<%= task_jobcode %> Hour: <%= task_hour %> Note: <%= task_note %></p>
 <% end %>
 
 

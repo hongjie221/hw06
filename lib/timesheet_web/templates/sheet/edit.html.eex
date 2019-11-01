@@ -1,5 +1,32 @@
-<h1>Edit Sheet</h1>
+<script>
+ function approve(id) {
+   document.getElementById("2").innerHTML = "hello"
+ }
+</script>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.sheet_path(@conn, :update, @sheet)) %>
 
-<span><%= link "Back", to: Routes.sheet_path(@conn, :index) %></span>
+<h1>Show Sheet</h1>
+
+
+<% sheets = @sheets_list %>
+<% sheets_status = @sheets_status %>
+<% sheets_detail = Enum.zip(sheets, sheets_status) %>
+
+<% sheets_detail_with_index = Enum.with_index(sheets_detail)%>
+<%= for {sheet_detail, index} <- sheets_detail_with_index do %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Jobcode</th>
+      <th>Hour</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <%= render("sheet.html", sheet_detail: sheet_detail) %>
+  <%= if Enum.at(sheets_status, index) === [false] do %>
+    <tr><p><%= link("approve", 
+    to: Routes.sheet_path(@conn, :show, Elixir.Enum.at(sheets, index)))%></p></tr>
+  <% end %>
+</table>
+
+<% end %>

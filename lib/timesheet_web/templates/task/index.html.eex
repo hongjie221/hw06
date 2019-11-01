@@ -7,6 +7,8 @@
     <%= select f, :job_code1, @allJobs, class: "form_control" %>
     <%= label f, :hours%>
     <%= text_input f, :hours1, class: "form_control"%>
+    <%= label f, :note%>
+    <%= text_input f, :note1, class: "form_control"%>
   </div>
 
   <div class="form_group">
@@ -14,6 +16,8 @@
     <%= select f, :job_code2, @allJobs, class: "form_control" %>
     <%= label f, :hours%>
     <%= text_input f, :hours2, class: "form_control"%>
+    <%= label f, :note%>
+    <%= text_input f, :note2, class: "form_control"%>
   </div>
 
   <div class="form_group">
@@ -21,6 +25,8 @@
     <%= select f, :job_code3, @allJobs, class: "form_control" %>
     <%= label f, :hours%>
     <%= text_input f, :hours3, class: "form_control"%>
+    <%= label f, :note%>
+    <%= text_input f, :note3, class: "form_control"%>
   </div>
 
   <div class="form_group">
@@ -28,6 +34,8 @@
     <%= select f, :job_code4, @allJobs, class: "form_control" %>
     <%= label f, :hours%>
     <%= text_input f, :hours4, class: "form_control"%>
+    <%= label f, :note%>
+    <%= text_input f, :note4, class: "form_control"%>
   </div>
 
   <div class="form_group">
@@ -35,6 +43,8 @@
     <%= select f, :job_code5, @allJobs, class: "form_control" %>
     <%= label f, :hours%>
     <%= text_input f, :hours5, class: "form_control"%>
+    <%= label f, :note%>
+    <%= text_input f, :note5, class: "form_control"%>
   </div>
 
   <div class="form_group">
@@ -42,6 +52,8 @@
     <%= select f, :job_code6, @allJobs, class: "form_control" %>
     <%= label f, :hours%>
     <%= text_input f, :hours6, class: "form_control"%>
+    <%= label f, :note%>
+    <%= text_input f, :note6, class: "form_control"%>
   </div>
 
   <div class="form_group">
@@ -49,6 +61,8 @@
     <%= select f, :job_code7, @allJobs, class: "form_control" %>
     <%= label f, :hours%>
     <%= text_input f, :hours7, class: "form_control"%>
+    <%= label f, :note%>
+    <%= text_input f, :note7, class: "form_control"%>
   </div>
 
   <div class="form_group">
@@ -56,6 +70,8 @@
     <%= select f, :job_code8, @allJobs, class: "form_control" %>
     <%= label f, :hours%>
     <%= text_input f, :hours8, class: "form_control"%>
+    <%= label f, :note%>
+    <%= text_input f, :note8, class: "form_control"%>
   </div>
 
  
@@ -65,4 +81,3 @@
   </div>
 <%end%>
 
-<p>eee</p>

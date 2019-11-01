@@ -1,18 +1,28 @@
+<h1>Sheet Approved</h1>
 <script>
  function approve(id) {
-   alert(id);
+   document.getElementById("2").innerHTML = "hello"
  }
 </script>
 
 
 <h1>Show Sheet</h1>
+
+
 <% sheets = @sheets_list %>
 <% sheets_status = @sheets_status %>
 <% sheets_detail = Enum.zip(sheets, sheets_status) %>
 <% sheets_detail_with_index = Enum.with_index(sheets_detail)%>
 <%= for {sheet_detail, index} <- sheets_detail_with_index do %>
-  
+  <table class="table table_striped">
+  <thead>
+    <tr>
+      <th>Jobcode</th>
+      <th>Hour</th>
+      <th>Note</th>
+    </tr>
+  </thead>
   <%= render("sheet.html", sheet_detail: sheet_detail) %>
 
-
 <% end %>
+</table>

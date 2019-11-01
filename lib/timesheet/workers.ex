@@ -122,4 +122,10 @@ defmodule Timesheet.Workers do
       _ -> nil
     end
   end
+
+  def get_manager_id_by_id(worker_id) do
+    query = from(w in Worker, where: w.id == ^worker_id, select: {w.manager_id})
+    Enum.map(Repo.all(query), fn {x} -> x end)
+  end
+
 end
