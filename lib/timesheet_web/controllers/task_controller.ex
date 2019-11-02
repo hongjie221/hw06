@@ -43,7 +43,7 @@ defmodule TimesheetWeb.TaskController do
       }) do
     hour = [hours1, hours2, hours3, hours4, hours5, hours6, hours7, hours8]
     jobcode = [jobcode1, jobcode2, jobcode3, jobcode4, jobcode5, jobcode6, jobcode7, jobcode8]
-    note = [note1, note2, note3, note4, note4, note6, note7, note8]
+    note = [note1, note2, note3, note4, note4, note5, note6, note7, note8]
 
     hour =
       Enum.map(hour, fn x ->
@@ -128,32 +128,6 @@ defmodule TimesheetWeb.TaskController do
     render(conn, "show.html", current_worker_id: current_worker_id)
   end
 
-  def edit(conn, %{"id" => id}) do
-    task = Tasks.get_task!(id)
-    changeset = Tasks.change_task(task)
-    render(conn, "edit.html", task: task, changeset: changeset)
-  end
 
-  def update(conn, %{"id" => id, "task" => task_params}) do
-    task = Tasks.get_task!(id)
 
-    case Tasks.update_task(task, task_params) do
-      {:ok, task} ->
-        conn
-        |> put_flash(:info, "Task updated successfully.")
-        |> redirect(to: Routes.task_path(conn, :show, task))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", task: task, changeset: changeset)
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    task = Tasks.get_task!(id)
-    {:ok, _task} = Tasks.delete_task(task)
-
-    conn
-    |> put_flash(:info, "Task deleted successfully.")
-    |> redirect(to: Routes.task_path(conn, :index))
-  end
 end

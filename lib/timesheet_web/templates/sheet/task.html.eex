@@ -1,9 +1,0 @@
-<% task = @task %>
-
-
-
-<%= for [jobcode, hour] <- task do %>
-<%IO.inspect(task)%>
-  <p>Jobcode: <%= @jobcode%>  Hour: <%= @hour %></p>
-
-<% end %>

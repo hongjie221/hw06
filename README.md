@@ -1,20 +1,7 @@
-# Timesheet
 
-To start your Phoenix server:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+Brife Description: For initial data, please visit seeds.ex.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+    Worker and Manager are separate. * Worker: 1. login with email and password 2. Input time sheet info(one worker can only have on timesheet in one day) 3. View submitted sheets ................................... * Manager: 1. Login with email and password 2. see all submitted timesheets(both approved and not approved) 3. Approve timesheet(Approve is a link instead of button) 4. Show all timesheet 5. One manager can only see his/her own employee's timesheet
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix

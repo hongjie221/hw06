@@ -4,29 +4,6 @@ defmodule TimesheetWeb.SheetController do
   alias Timesheet.Sheets
   alias Timesheet.Sheets.Sheet
 
-  def index(conn, _params) do
-    sheets = Sheets.list_sheets()
-    render(conn, "index.html", sheets: sheets)
-  end
-
-  @spec new(any, any) :: none
-  def new(conn, _params) do
-    changeset = Sheets.change_sheet(%Sheet{})
-    render(conn, "new.html", changeset: changeset)
-  end
-
-  def create(conn, %{"sheet" => sheet_params}) do
-    case Sheets.create_sheet(sheet_params) do
-      {:ok, sheet} ->
-        conn
-        |> put_flash(:info, "Sheet created successfully.")
-        |> redirect(to: Routes.sheet_path(conn, :show, sheet))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
-    end
-  end
-
   def show(conn, %{"id" => id}) do
     Timesheet.Sheets.change_sheet_status_by_id(id)
     all_task = Timesheet.Tasks.get_task_by_sheet_id(id)
