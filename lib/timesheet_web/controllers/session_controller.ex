@@ -46,14 +46,14 @@ defmodule TimesheetWeb.SessionController do
   end
 
 
-  def delete(conn, %{"worker" => worker}) do
+  def delete(conn, %{"worker" => _worker}) do
     conn
     |> delete_session(:worker_id)
     |> put_flash(:info, "Log out")
     |> redirect(to: Routes.page_path(conn, :index))
   end
 
-  def delete(conn, %{"manager" => manager}) do
+  def delete(conn, %{"manager" => _manager}) do
     conn
     |> delete_session(:manager_id)
     |> put_flash(:info, "Log out")

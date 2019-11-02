@@ -8,23 +8,25 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
+    
     <div class="continer">
-    <%= if !(is_nil(@current_worker)) and (is_nil(@current_manager)) do %>
-      <span>Worker: <%= @current_worker.name%></span>
-      (<span><%= link("Logout", to: Routes.session_path(@conn, :delete, worker: "worker"), method: :delete) %> </span>)
-    <% end %>
+      <nav class="navbar navbar-expand-sm navbar-white bg-light">
+        <%= if !(is_nil(@current_worker)) and (is_nil(@current_manager)) do %>
+          Worker: <%= @current_worker.name%>
+          (<%= link("Logout", to: Routes.session_path(@conn, :delete, worker: "worker"), method: :delete) %> )
+        <% end %>
 
-    <%= if !(is_nil(@current_manager)) and is_nil(@current_worker) do %>
-      <span>Manager: <%= @current_manager.name%></span>
-      (<span><%= link("Logout", to: Routes.session_path(@conn, :delete, manager: "manager"), method: :delete) %></span>)
-    <% end %>
-    <%= if is_nil(@current_manager) and is_nil(@current_worker) do %>
-     <span> <%= link("Manager_Login", to: Routes.session_path(@conn, :new, manager: "manager"))%><span>
-     <span> <%= link("Worker_Login", to: Routes.session_path(@conn, :new, worker: "worker"))%></span>
-    <% end %>
-
+        <%= if !(is_nil(@current_manager)) and is_nil(@current_worker) do %>
+           Manager: <%= @current_manager.name%>
+           (<%= link("Logout", to: Routes.session_path(@conn, :delete, manager: "manager"), method: :delete) %>)
+        <% end %>
+        <%= if is_nil(@current_manager) and is_nil(@current_worker) do %>
+           <%= link("Manager_Login", to: Routes.session_path(@conn, :new, manager: "manager"))%>
+           <%= link("Worker_Login", to: Routes.session_path(@conn, :new, worker: "worker"))%>
+        <% end %>
+     </nav>
     </div>
-    </na>
+    
   
 
 
