@@ -9,6 +9,7 @@ defmodule TimesheetWeb.SheetController do
     render(conn, "index.html", sheets: sheets)
   end
 
+  @spec new(any, any) :: none
   def new(conn, _params) do
     changeset = Sheets.change_sheet(%Sheet{})
     render(conn, "new.html", changeset: changeset)
@@ -51,26 +52,4 @@ defmodule TimesheetWeb.SheetController do
     render(conn, "edit.html", sheets_list: sheets_list, sheets_status: sheets_status)
   end
 
-  def update(conn, %{"id" => id, "sheet" => sheet_params}) do
-    sheet = Sheets.get_sheet!(id)
-
-    case Sheets.update_sheet(sheet, sheet_params) do
-      {:ok, sheet} ->
-        conn
-        |> put_flash(:info, "Sheet updated successfully.")
-        |> redirect(to: Routes.sheet_path(conn, :show, sheet))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", sheet: sheet, changeset: changeset)
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    sheet = Sheets.get_sheet!(id)
-    {:ok, _sheet} = Sheets.delete_sheet(sheet)
-
-    conn
-    |> put_flash(:info, "Sheet deleted successfully.")
-    |> redirect(to: Routes.sheet_path(conn, :index))
-  end
 end

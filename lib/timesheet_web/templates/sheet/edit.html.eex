@@ -1,9 +1,3 @@
-<script>
- function approve(id) {
-   document.getElementById("2").innerHTML = "hello"
- }
-</script>
-
 
 <h1>Show Sheet</h1>
 

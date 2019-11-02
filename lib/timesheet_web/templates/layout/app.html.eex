@@ -10,13 +10,13 @@
   <body>
     <div class="continer">
     <%= if !(is_nil(@current_worker)) and (is_nil(@current_manager)) do %>
-      Worker: <%= @current_worker.name%>
+      <span>Worker: <%= @current_worker.name%></span>
       (<span><%= link("Logout", to: Routes.session_path(@conn, :delete, worker: "worker"), method: :delete) %> </span>)
     <% end %>
 
     <%= if !(is_nil(@current_manager)) and is_nil(@current_worker) do %>
-      Manager: <%= @current_manager.name%>
-      (<%= link("Logout", to: Routes.session_path(@conn, :delete, manager: "manager"), method: :delete) %>)
+      <span>Manager: <%= @current_manager.name%></span>
+      (<span><%= link("Logout", to: Routes.session_path(@conn, :delete, manager: "manager"), method: :delete) %></span>)
     <% end %>
     <%= if is_nil(@current_manager) and is_nil(@current_worker) do %>
      <span> <%= link("Manager_Login", to: Routes.session_path(@conn, :new, manager: "manager"))%><span>

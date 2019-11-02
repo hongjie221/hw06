@@ -128,4 +128,9 @@ defmodule Timesheet.Workers do
     Enum.map(Repo.all(query), fn {x} -> x end)
   end
 
+  def get_worker_name_by_id(worker_id) do
+    query = from(w in Worker, where: w.id == ^worker_id, select: {w.name})
+    Enum.map(Repo.all(query), fn {x} -> x end)
+  end
+
 end

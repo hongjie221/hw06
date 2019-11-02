@@ -2,7 +2,7 @@
 <h2>Task.Index</h2>
 
 <span> <%= link("View All Sheets", 
-    to: Routes.session_path(@conn, :new, manager: "manager"))%><span>
+    to: Routes.task_path(@conn, :show, @current_worker.id))%></span>
 
 <%= form_for @conn, Routes.task_path(@conn, :create), fn f -> %>
   <div class="form_group">
@@ -76,8 +76,15 @@
     <%= label f, :note%>
     <%= text_input f, :note8, class: "form_control"%>
   </div>
-
- 
+  
+  <div class="form_group">
+    <%= label f, :year %>
+    <%= select f, :year, Enum.to_list(1990 .. 2100), class: "form_control"%>
+    <%= label f, :month %>
+    <%= select f, :month, Enum.to_list(1 .. 12), class: "form_control"%>
+    <%= label f, :day %>
+    <%= select f, :day, Enum.to_list(1 .. 31), class: "form_control"%>
+  </div>
 
   <div>
     <%= submit "Submit", class: "btn btn-primary" %>

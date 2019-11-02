@@ -50,9 +50,14 @@ defmodule Timesheet.Sheets do
 
   """
   def create_sheet(attrs \\ %{}) do
-    %Sheet{}
+    {:ok, sheet} = %Sheet{}
     |> Sheet.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(on_conflict: :nothing)
+    if is_nil(sheet.id) do
+      {:error, "You have a timesheet at the date"}
+    else
+      {:ok, sheet}
+    end
   end
 
   @doc """
@@ -120,6 +125,12 @@ defmodule Timesheet.Sheets do
   def get_worker_id_by_id(sheet_id) do
     query = from(s in Sheet, where: s.id == ^sheet_id, select: {s.worker_id})
     Enum.map(Repo.all(query), fn {x} -> x end)
+  end
+
+  def get_date_by_id(sheet_id) do
+    query = from(s in Sheet, where: s.id == ^sheet_id, select: {s.date})
+    date = Enum.map(Repo.all(query), fn {x} -> x end)
+    Enum.map(date, fn x -> Date.to_string(x) end)
   end
 
 

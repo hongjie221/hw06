@@ -8,6 +8,7 @@
 <% else %>
  <span>Status: <%= "Not Approved" %> </span>
  <% end %>
+ <span>Date: <%=@date%></span>
 
 <%= for task <- task_list do %>
   <% {task_jobcode, task_hour, task_note} = task %>

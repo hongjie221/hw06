@@ -1,3 +1,1 @@
-<p>Page.Index</p>
-<%allJobs = Timesheet.Jobs.list_job_codes()%>
-<%= link("Create new sheet", to: Routes.task_path(@conn, :index, allJobs: allJobs))%>
+<span>Welcome to Timesheet</span>

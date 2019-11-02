@@ -1,11 +1,16 @@
 
 <% {sheet_id, sheet_status} = @sheet_detail%>
 <% [approved] = sheet_status %>
+<% [worker_id] = Timesheet.Sheets.get_worker_id_by_id(sheet_id) %>
+<% worker_name = Timesheet.Workers.get_worker_name_by_id(worker_id)%>
+<% date = Timesheet.Sheets.get_date_by_id(sheet_id)%>
 <%= if approved do %>
   <span>Sheet  Status: Approved</span>
 <% else %>
   <span>Sheet Status: Not Approved</span>
 <% end %>
+<span>Worker: <%= worker_name %></span>
+<span>Date: <%= date %></span>
 <% tasks = Timesheet.Tasks.get_task_by_sheet_id(sheet_id) %>
  
 

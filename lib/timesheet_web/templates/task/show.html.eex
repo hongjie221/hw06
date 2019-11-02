@@ -1,9 +1,19 @@
 <h1>Show Task</h1>
+<% current_worker_id = @current_worker_id%>
+<% sheets = Timesheet.Sheets.get_all_sheet_id_by_worker_id(current_worker_id) %>
+<% all_tasks = Enum.map(sheets, fn x -> Timesheet.Tasks.get_task_by_sheet_id(x) end) %>
+<% all_status = Enum.map(sheets, fn x -> Timesheet.Sheets.get_sheet_status_by_id(x) end) %>
+<% all_date = Enum.map(sheets, fn x -> Timesheet.Sheets.get_date_by_id(x) end)%>
+<% all_combo = Enum.zip(all_tasks, all_status) %>
+<% all_combo_with_date = Enum.zip(all_combo, all_date)%>
+<% IO.inspect(all_combo_with_date)%>
+<% allJobs = Timesheet.Jobs.list_job_codes()%>
 
-<% all_combo = @all_combo%>
+<h3> <%= link("Back To Create Sheet", 
+    to: Routes.task_path(@conn, :index, allJobs: allJobs))%></h3>
 
 <%= if all_combo !== "1" do %>
-  <%= for combo <- all_combo do %>
+  <%= for {combo, date} <- all_combo_with_date do %>
   <table class="table table-striped">
   <thead>
     <tr>
@@ -12,7 +22,7 @@
       <th>Note</th>
     </tr>
   </thead>
-  <%= render("task.html", combo: combo) %>
+  <%= render("task.html", combo: combo, date: date) %>
   <% end %>
   </thead>
 <% else %> 
