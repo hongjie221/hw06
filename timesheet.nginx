@@ -1,0 +1,21 @@
+upstream timesheet_app {
+    server localhost:5001;
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name time1.lilydevelop.com;
+
+    location / {
+        proxy_pass http://timesheet_app;
+    }
+
+    location /socket {
+        proxy_pass http://timesheet_app;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
