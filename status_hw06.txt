@@ -18,7 +18,7 @@ https://github.com/hongjie221/hw06
 
 4. What's the URL that you deployed to?
 
-time1@lilydevelop.com
+time1.lilydevelop.com
 
 5. Is your app functionality complete? If not, what's missing?
 yes
