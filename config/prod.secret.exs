@@ -28,7 +28,7 @@ config :timesheet, TimesheetWeb.Endpoint,
   secret_key_base: secret_key_base
 
 
-config :timesheet, TimesheetWeb.Endpoint, server: true
+
 
 # ## Using releases (Elixir v1.9+)
 #
@@ -39,3 +39,4 @@ config :timesheet, TimesheetWeb.Endpoint, server: true
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
+config :timesheet, TimesheetWeb.Endpoint, server: true
