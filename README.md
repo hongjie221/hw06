@@ -11,4 +11,3 @@ Brife Description: For initial data, please visit seeds.ex.
                3. Approve timesheet(Approve is a link instead of button) 
                4. Show all timesheet 5. One manager can only see his/her own employee's timesheet
 
-
